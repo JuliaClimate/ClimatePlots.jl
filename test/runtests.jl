@@ -13,8 +13,7 @@ filenc = joinpath(dirname(@__FILE__), "data", "sresa1b_ncar_ccsm3-example.nc")
 
 polyshp = read(filename, Shapefile.Handle)
 P = shapefile_coords_poly(polyshp.shapes[1])
-# P = [x y]
-# P = P'
+
 lat = NetCDF.ncread(filenc, "lat")
 lon = NetCDF.ncread(filenc, "lon")
 C = load(filenc, "tas", poly = P)
@@ -26,16 +25,6 @@ status, figh = mapclimgrid(C); @test status == true; PyPlot.close()
 @test size(P) == (2, 6)
 @test isnan(P[1,1])
 @test isnan(P[2,1])
-
-# filename = joinpath(dirname(@__FILE__), "data", "zoneAgricoleQc15km.shp")
-# polyshp = read(filename,Shapefile.Handle)
-# x, y = shapefile_coords(polyshp.shapes[2])
-# P = [x y]
-# P = P'
-# cities_lat = collect(45.5016889:0.1:46.8138783)
-# cities_lon = collect(-73.56725599999999:0.1:-71.2079809) + 360
-# @test sum(.!isnan.(inpolyvec(cities_lon, cities_lat, P))) == 336
-# @test sum(.!isnan.(inpolyvec(cities_lon - 360, cities_lat, P))) == 336
 
 # Mapping test
 filename = joinpath(dirname(@__FILE__), "data", "sresa1b_ncar_ccsm3-example.nc")
