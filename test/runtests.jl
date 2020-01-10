@@ -1,85 +1,45 @@
 using Dates
 using AxisArrays
-using NetCDF
 using ClimatePlots
-using Shapefile
+using ClimateTools
+using PyPlot
 using Test
 
 @testset "Mapping" begin
 
 # Shapefile test
-filename = joinpath(dirname(@__FILE__), "data", "SudQC_GCM.shp")
 filenc = joinpath(dirname(@__FILE__), "data", "sresa1b_ncar_ccsm3-example.nc")
 
-polyshp = read(filename, Shapefile.Handle)
-P = shapefile_coords_poly(polyshp.shapes[1])
-
-lat = NetCDF.ncread(filenc, "lat")
-lon = NetCDF.ncread(filenc, "lon")
-C = load(filenc, "tas", poly = P)
-msk = inpolygrid(C.longrid, C.latgrid, P)
-status, figh = mapclimgrid(C); @test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, mask = msk); @test status == true; PyPlot.close()
 C = load(filenc, "tas")
+# msk = inpolygrid(C.longrid, C.latgrid, P)
 status, figh = mapclimgrid(C); @test status == true; PyPlot.close()
-@test size(P) == (2, 6)
-@test isnan(P[1,1])
-@test isnan(P[2,1])
 
-# Mapping test
-filename = joinpath(dirname(@__FILE__), "data", "sresa1b_ncar_ccsm3-example.nc")
-C = load(filename, "tas")
-status, figh = mapclimgrid(C);@test status == true;PyPlot.close()
-status, figh = mapclimgrid(C, region = "World");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "WorldAz");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(C, region = "WorldEck4");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Canada");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Quebec");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(C, region = "QuebecNSP");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Americas");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "NorthAmerica");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(C, region = "SouthAmerica");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Greenwich");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(annualmax(C), region = "Europe");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(annualmin(C), region = "Arctic");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(annualmin(C), region = "Antarctic");@test status == true; PyPlot.close()
+regions = ["World", "WorldAz", "Canada", "Quebec", "Quebec_agricole", "South_Quebec", "Americas", "NorthAmerica", "SouthAmerica", "Greenwich", "Outaouais", "Laurentides", "Estrie", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "West-Asia"]
+
+for iregion in regions
+    status, figh = mapclimgrid(C, region=iregion);@test status == true; PyPlot.close()
+end
 
 # precip
-C = load(filename, "pr", data_units="mm") + 2.0
-status, figh = mapclimgrid(C);@test status == true; PyPlot.close()
+C = load(filenc, "pr", data_units="mm") + 2.0
+
+regions = ["World", "WorldAz", "Canada", "Quebec", "Quebec_agricole", "South_Quebec", "Americas", "NorthAmerica", "SouthAmerica", "Greenwich", "Outaouais", "Laurentides", "Estrie", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "West-Asia"]
+
+for iregion in regions
+    status, figh = mapclimgrid(C, region=iregion);@test status == true; PyPlot.close()
+end
+
 status, figh = mapclimgrid(C, start_date=(2000, 05, 16, 12), end_date=(2000, 05, 16, 12));@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "World");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "WorldAz");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(C, region = "WorldEck4");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Canada");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Quebec");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(C, region = "QuebecNSP");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Americas");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "NorthAmerica");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "SouthAmerica");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Americas");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Arctic");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Antarctic");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(C, region = "Greenwich");@test status == true; PyPlot.close()
-status, figh = mapclimgrid(annualmax(C), region = "Europe");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(annualmin(C), region = "Arctic");@test status == true; PyPlot.close()
-# status, figh = mapclimgrid(annualmin(C), region = "Antarctic");@test status == true; PyPlot.close()
+
 
 # ua wind
-filename = joinpath(dirname(@__FILE__), "data", "SudQC_GCM.shp")
 filenc = joinpath(dirname(@__FILE__), "data", "sresa1b_ncar_ccsm3-example.nc")
-polyshp = read(filename,Shapefile.Handle)
-x, y = shapefile_coords(polyshp.shapes[1])
-P = [x y]
-P = P'
+
 C = load(filenc, "ua")
 status, figh = mapclimgrid(C, level = 3);@test status == true; PyPlot.close() # given level
 status, figh = mapclimgrid(C);@test status == true; PyPlot.close() # feeding a 4D field
-status, figh = mapclimgrid(C, poly = P);@test status == true; PyPlot.close() # feeding a 4D field with a polygon
-status, figh = mapclimgrid(spatialsubset(C, P), mask = msk);@test status == true; PyPlot.close() # feeding a 4D field with a mask
-C = load(filenc, "ua", poly = P)
-status, figh = mapclimgrid(C);@test status == true; PyPlot.close() # feeding a 4D field
 
+# Empty maps
 regions = ["World", "WorldAz", "Canada", "Quebec", "Quebec_agricole", "South_Quebec", "Americas", "NorthAmerica", "SouthAmerica", "Greenwich", "Outaouais", "Laurentides", "Estrie", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "West-Asia"]
 
 for iregion in regions
@@ -125,14 +85,11 @@ axisdata = AxisArray(data, Axis{:lon}(lon), Axis{:lat}(lat), Axis{:time}(timeV))
 C = ClimateTools.ClimGrid(axisdata, variable = "psl", typeofvar="psl", longrid=longrid, latgrid=latgrid, dimension_dict=dimension_dict, varattribs=varattribs)
 
 status, figh = plot(C); @test status == true; PyPlot.close()
-status, figh = plot(C, poly=P); @test status == true; PyPlot.close()
-status, figh = plot(C, start_date=(2003, 01, 10), end_date=(2003, 05, 12)); @test status==true;PyPlot.close()
 status, figh = plot(C, xlimit=[2 5]); @test status==true;PyPlot.close()
 status, figh = plot(C, label = "dummy", titlestr="dummytest", gridfig=true); @test status == true; PyPlot.close()
 
 status, figh = hist(C); @test status == true; PyPlot.close()
-status, figh = hist(C, poly=P, ylimit=[2, 5]); @test status == true; PyPlot.close()
-status, figh = hist(C, start_date=(2003, 01, 10), end_date=(2003, 05, 12)); @test status==true;PyPlot.close()
+status, figh = hist(C, ylimit=[2, 5]); @test status == true; PyPlot.close()
 status, figh = hist(C, label = "dummy", titlestr="dummytest", gridfig=false); @test status == true; PyPlot.close()
 
 end

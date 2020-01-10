@@ -1,10 +1,12 @@
 module ClimatePlots
 
-
+using Dates
 using Reexport
+@reexport using ClimateBase
 @reexport using ClimateTools
 using PyCall
 using PyPlot
+using Statistics
 
 const basemap = PyNULL()
 const mpl = PyNULL()

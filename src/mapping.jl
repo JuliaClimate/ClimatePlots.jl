@@ -231,14 +231,7 @@ end
 
 Plots the spatial average timeserie of ClimGrid `C`.
 """
-function PyPlot.plot(C::ClimGrid; level=1, poly=[], start_date::Tuple=(Inf,), end_date::Tuple=(Inf,), titlestr::String="", gridfig::Bool=true, label::String="", lw=1.5, linestyle="-", xlimit=[], ylimit=[], filename::String="")
-
-    if !isempty(poly)
-        C = spatialsubset(C, poly)
-    end
-    if !isinf(start_date[1]) || !isinf(end_date[1])
-        C = temporalsubset(C, start_date, end_date)
-    end
+function PyPlot.plot(C::ClimGrid; level=1, titlestr::String="", gridfig::Bool=true, label::String="", lw=1.5, linestyle="-", xlimit=[], ylimit=[], filename::String="")
 
     data = C[1].data
     timevec = get_timevec(C)
@@ -273,7 +266,7 @@ function PyPlot.plot(C::ClimGrid; level=1, poly=[], start_date::Tuple=(Inf,), en
     timevec_str = string.(timevec)
     if length(timevec) >= 20
         nb_interval_tmp = length(timevec)/8
-        nb_int = ClimateTools.roundup(nb_interval_tmp, 5)
+        nb_int = ClimatePlots.roundup(nb_interval_tmp, 5)
     else
         nb_int = 1
     end
@@ -311,14 +304,7 @@ end
 """
     hist(C::ClimGrid; bins::Int=10, level=1, range_x=[], poly=[], start_date::Tuple=(Inf,), end_date::Tuple=(Inf,), titlestr::String="", gridfig::Bool=true, label::String="", ylimit=[])
 """
-function PyPlot.hist(C::ClimGrid; bins::Int=10, level=1, range_x=[], poly=[], start_date::Tuple=(Inf,), end_date::Tuple=(Inf,), titlestr::String="", gridfig::Bool=true, label::String="", ylimit=[])
-
-    if !isempty(poly)
-        C = spatialsubset(C, poly)
-    end
-    if !isinf(start_date[1]) || !isinf(end_date[1])
-        C = temporalsubset(C, start_date, end_date)
-    end
+function PyPlot.hist(C::ClimGrid; bins::Int=10, level=1, range_x=[], titlestr::String="", gridfig::Bool=true, label::String="", ylimit=[])
 
     if isempty(label)
         label = C.model
