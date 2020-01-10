@@ -1,1 +1,4 @@
-
+name = "ClimatePlots"
+uuid = "b71d359b-899c-4fb1-b3ad-2de2d2cb8353"
+authors = ["Philippe Roy <borghor@yahoo.ca>"]
+version = "0.1.0"
