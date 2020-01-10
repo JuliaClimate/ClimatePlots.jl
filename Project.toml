@@ -2,3 +2,9 @@ name = "ClimatePlots"
 uuid = "b71d359b-899c-4fb1-b3ad-2de2d2cb8353"
 authors = ["Philippe Roy <borghor@yahoo.ca>"]
 version = "0.1.0"
+
+[deps]
+ClimateTools = "4f4ee721-4970-5af2-8560-6c1d960e3231"
+PyCall = "438e738f-606a-5dbb-bf0a-cddfbfd45ab0"
+PyPlot = "d330b81b-6aea-500a-939a-2ce795aea3ee"
+Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
