@@ -90,7 +90,7 @@ function mapclimgrid(C::ClimGrid; region::String="auto", states::Bool=false, pol
   cm = mpl.colors.LinearSegmentedColormap.from_list("cm_custom", colorlist, N)
 
   # Get colorscale limits
-  vmin, vmax = ClimateTools.getcslimits(caxis, data2, center_cs)
+  vmin, vmax = getcslimits(caxis, data2, center_cs)
 
   # Empty-map generator
   status, fig, ax, m = mapclimgrid(region=region, states=states, llon=llon, rlon=rlon, slat=slat, nlat=nlat)

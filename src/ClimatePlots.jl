@@ -2,7 +2,7 @@ module ClimatePlots
 
 
 using Reexport
-@reexport ClimateTools
+@reexport using ClimateTools
 using PyCall
 using PyPlot
 
