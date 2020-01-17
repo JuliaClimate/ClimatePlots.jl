@@ -102,7 +102,7 @@ function mapclimgrid(C::ClimGrid; region::String="auto", states::Bool=false, pol
   elseif surface == :pcolormesh
     cs = m.pcolormesh(x, y, data2, cmap = cm, vmin=vmin, vmax=vmax)
   else
-    error("This type of surface is not supported. File an issue on https://github.com/Balinus/ClimateTools.jl/issues")
+    error("This type of surface is not supported. File an issue on https://github.com/JuliaClimate/ClimatePlots.jl/issues")
   end
 
   # Colorbar
