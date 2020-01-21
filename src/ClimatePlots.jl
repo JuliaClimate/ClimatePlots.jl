@@ -13,8 +13,8 @@ const cmocean = PyNULL()
 # const scipy = PyNULL()
 
 function __init__()
-    copy!(mpl, pyimport_conda("matplotlib", "matplotlib"))
-    copy!(basemap, pyimport_conda("mpl_toolkits.basemap", "basemap"))
+    copy!(mpl, pyimport_conda("matplotlib", "matplotlib", "conda-forge"))
+    copy!(basemap, pyimport_conda("mpl_toolkits.basemap", "basemap", "conda-forge"))
     copy!(cmocean, pyimport_conda("cmocean", "cmocean", "conda-forge"))
   # copy!(scipy, pyimport_conda("scipy.interpolate", "scipy"))
 end
