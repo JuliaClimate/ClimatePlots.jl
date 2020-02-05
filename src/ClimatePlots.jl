@@ -9,14 +9,15 @@ using Statistics
 
 const basemap = PyNULL()
 const mpl = PyNULL()
+const plt = PyNULL()
 const cmocean = PyNULL()
-# const scipy = PyNULL()
+const cartopy = PyNULL()
 
 function __init__()
     copy!(mpl, pyimport_conda("matplotlib", "matplotlib", "conda-forge"))
-    copy!(basemap, pyimport_conda("mpl_toolkits.basemap", "basemap", "conda-forge"))
+    copy!(plt, pyimport_conda("matplotlib.pyplot", "matplotlib", "conda-forge"))
     copy!(cmocean, pyimport_conda("cmocean", "cmocean", "conda-forge"))
-  # copy!(scipy, pyimport_conda("scipy.interpolate", "scipy"))
+    copy!(cartopy, pyimport_conda("cartopy", "cartopy", "conda-forge"))
 end
 
 include("mapping.jl")

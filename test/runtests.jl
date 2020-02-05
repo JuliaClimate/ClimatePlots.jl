@@ -12,9 +12,9 @@ filenc = joinpath(dirname(@__FILE__), "data", "sresa1b_ncar_ccsm3-example.nc")
 
 C = load(filenc, "tas")
 # msk = inpolygrid(C.longrid, C.latgrid, P)
-status, figh = ClimatePlots.mapclimgrid(C); @test status == true; PyPlot.close()
+# status, figh = ClimatePlots.mapclimgrid(C); @test status == true; PyPlot.close()
 
-regions = ["World", "WorldAz", "Canada", "Quebec", "Quebec_agricole", "South_Quebec", "Americas", "NorthAmerica", "SouthAmerica", "Greenwich", "Outaouais", "Laurentides", "Estrie", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "West-Asia"]
+regions = ["World", "Mollweide", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6","Canada", "Quebec", "USA","NorthAmerica", "SouthAmerica", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "auto"]
 
 for iregion in regions
     status, figh = ClimatePlots.mapclimgrid(C, region=iregion);@test status == true; PyPlot.close()
@@ -22,8 +22,6 @@ end
 
 # precip
 C = load(filenc, "pr", data_units="mm") + 2.0
-
-regions = ["World", "WorldAz", "Canada", "Quebec", "Quebec_agricole", "South_Quebec", "Americas", "NorthAmerica", "SouthAmerica", "Greenwich", "Outaouais", "Laurentides", "Estrie", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "West-Asia"]
 
 for iregion in regions
     status, figh = ClimatePlots.mapclimgrid(C, region=iregion);@test status == true; PyPlot.close()
@@ -33,16 +31,14 @@ status, figh = ClimatePlots.mapclimgrid(C, start_date=(2000, 05, 16, 12), end_da
 
 
 # ua wind
-filenc = joinpath(dirname(@__FILE__), "data", "sresa1b_ncar_ccsm3-example.nc")
-
 C = load(filenc, "ua")
 status, figh = ClimatePlots.mapclimgrid(C, level = 3);@test status == true; PyPlot.close() # given level
 status, figh = ClimatePlots.mapclimgrid(C);@test status == true; PyPlot.close() # feeding a 4D field
 
 # Empty maps
-regions = ["World", "WorldAz", "Canada", "Quebec", "Quebec_agricole", "South_Quebec", "Americas", "NorthAmerica", "SouthAmerica", "Greenwich", "Outaouais", "Laurentides", "Estrie", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "West-Asia"]
+regions = ["World", "Mollweide", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6","Canada", "Quebec", "USA","NorthAmerica", "SouthAmerica", "Arctic", "Antarctic", "Africa", "Europe", "Asia"]
 
-for iregion in regions
+for iregion in regions    
     status, figh = ClimatePlots.mapclimgrid(region=iregion);@test status == true; PyPlot.close()
 end
 
