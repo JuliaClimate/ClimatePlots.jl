@@ -93,14 +93,19 @@ function mapclimgrid(C::ClimGrid; region::String="auto", states::Bool=false, pol
   vmin, vmax = getcslimits(caxis, data2, center_cs)
 
   # Empty-map generator
-  status, fig, ax, m = mapclimgrid(region=region, states=states, llon=llon, rlon=rlon, slat=slat, nlat=nlat)
+  status, ax, projection = mapclimgrid(region=region, states=states, llon=llon, rlon=rlon, slat=slat, nlat=nlat)
 
-  x, y = m(C.longrid, C.latgrid) # convert longrid and latgrid to projected coordinates
+  # x, y = m(C.longrid, C.latgrid) # convert longrid and latgrid to projected coordinates
+
+
 
   if surface == :contourf
-    cs = m.contourf(x, y, data2, ncolors, cmap = cm, vmin=vmin, vmax=vmax)
+      cs = ax.contourf(C.longrid, C.latgrid, data2, transform=cartopy.crs.PlateCarree(), cmap=cm, vmin=vmin, vmax=vmax)
+    # cs = m.contourf(x, y, data2, ncolors, cmap = cm, vmin=vmin, vmax=vmax)
   elseif surface == :pcolormesh
-    cs = m.pcolormesh(x, y, data2, cmap = cm, vmin=vmin, vmax=vmax)
+      cs = ax.pcolormesh(C.longrid, C.latgrid, data2, transform=cartopy.crs.PlateCarree(), cmap=cm, vmin=vmin, vmax=vmax)
+  elseif surface == :contour
+      cs = ax.contour(C.longrid, C.latgrid, data2, transform=cartopy.crs.PlateCarree(), cmap=cm, vmin=vmin, vmax=vmax)
   else
     error("This type of surface is not supported. File an issue on https://github.com/JuliaClimate/ClimatePlots.jl/issues")
   end
@@ -122,7 +127,7 @@ function mapclimgrid(C::ClimGrid; region::String="auto", states::Bool=false, pol
       PyPlot.savefig(filename, dpi=300)
   end
 
-  return true, fig, ax, cbar
+  return true, ax, projection, cbar
 end
 
 """
@@ -135,94 +140,166 @@ function mapclimgrid(;region::String="auto", states::Bool=true, llon=[], rlon=[]
     fig, ax = subplots()
 
     if lowercase(region) == "canada" || lowercase(region) == "ca"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "lcc", resolution = "l", width=6500000,height=5000000, lat_0 = 62, lon_0 = -95, lat_1 = 45., lat_2 = 55, rsphere = (6378137.00, 6356752.3142))
 
-    elseif lowercase(region) == "africa" || lowercase(region) == "afr"
-        m = basemap.Basemap(projection = "cea", resolution = "l", llcrnrlon=-22.0, llcrnrlat=-40.0, urcrnrlon=58.0, urcrnrlat=40.352, rsphere=(6378137.00, 6356752.3142))
-
     elseif lowercase(region) == "asia"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "eqdc", resolution = "l", llcrnrlon=70.0, llcrnrlat=-20.0, urcrnrlon=180.0, urcrnrlat=60.0, lat_0=10.0, lon_0=110,  rsphere=(6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "west-asia" || lowercase(region) == "was"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "eqdc", resolution = "l", llcrnrlon=5.0, llcrnrlat=-30.0, urcrnrlon=145.0, urcrnrlat=50.0, lat_0=5.0, lon_0=65,  rsphere=(6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "quebec" || lowercase(region) == "qc"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "lcc", resolution = "l", llcrnrlon = -80.5, llcrnrlat = 41., urcrnrlon = -50.566, urcrnrlat = 62.352, lon_0 = -70, lat_1 = 50, rsphere = (6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "south_quebec" || lowercase(region) == "south_qc"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "lcc", resolution = "l", llcrnrlon = -75.9, llcrnrlat = 42.6, urcrnrlon = -61.5, urcrnrlat = 49.5, lon_0 = -70, lat_1 = 50, rsphere = (6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "quebec_agricole" || lowercase(region) == "qc_agr"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "lcc", resolution="l", llcrnrlon=-80, llcrnrlat=44.2, urcrnrlon=-62.5, urcrnrlat=50.5, lon_0=-72, lat_1=50, rsphere = (6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "quebecnsp" || lowercase(region) == "qcnsp"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "nsper", resolution= "l", satellite_height = 2000000, lon_0 = -72.5, lat_0 = 55)
 
     elseif lowercase(region) == "americas" || lowercase(region) == "ams"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "omerc", resolution = "c", width=14000000, height=17000000, lon_0 = -100, lat_0 =    15, lon_1 = -45, lon_2 = -120, lat_1 = -55, lat_2 = 70)
 
     elseif lowercase(region) == "arctic" || lowercase(region) == "aps"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "npstere", resolution = "l", boundinglat = 47, lon_0 = 255)
 
     elseif lowercase(region) == "antarctic" || lowercase(region) == "aaps"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "spstere", resolution = "l", boundinglat = -60, lon_0 = 210)
 
     elseif lowercase(region) == "greenwich" || lowercase(region) == "gr"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection = "omerc", resolution = "c", width=9000000, height=15000000, lon_0 = 10, lat_0 = 25, lon_1 = -10, lon_2 = 20, lat_1 = -75, lat_2 = 30)
 
     elseif lowercase(region) == "europe" || lowercase(region) == "eu"
-        m = basemap.Basemap(projection = "lcc", resolution = "l", width = 6800000, height = 4700000, lat_0 = 53, lon_0 = 20, lat_1 = 33, lat_2 = 50, rsphere = (6378137.00, 6356752.3142))
+        central_lon = 10.0
+        central_lat = 50.0
+        extent = [-12, 40, 30, 75]
+        projection=cartopy.crs.LambertConformal(central_longitude=central_lon, central_latitude=central_lat)
+        ax = plt.axes(projection=projection)
+        ax.set_extent(extent)
 
     elseif lowercase(region) == "africa" || lowercase(region) == "afr"
-        m = basemap.Basemap(projection = "cea", resolution = "l", llcrnrlon=-22.0, llcrnrlat=-40.0, urcrnrlon=58.0, urcrnrlat=40.352, rsphere=(6378137.00, 6356752.3142))
+
+        central_lon = 12.0
+        central_lat = -30.0
+        extent = [-20, 55, -32, 36]
+        projection=cartopy.crs.PlateCarree()
+        ax = plt.axes(projection=projection)
+        ax.set_extent(extent)
 
     elseif lowercase(region) == "northamerica" || lowercase(region) == "na"
-        m = basemap.Basemap(projection = "lcc", resolution = "l", llcrnrlon = -135.5, llcrnrlat = 1., urcrnrlon = -10.566, urcrnrlat = 46.352, lon_0 = -95, lat_1 = 50, rsphere = (6378137.00, 6356752.3142))
+        central_lon = -95.0
+        central_lat = 50.0
+        extent = [-135.5, -55, 10, 80]
+        projection=cartopy.crs.LambertConformal(central_longitude=central_lon, central_latitude=central_lat)
+        ax = plt.axes(projection=projection)
+        ax.set_extent(extent)
 
     elseif lowercase(region) == "southamerica" || lowercase(region) == "sa"
-        m = basemap.Basemap(projection = "lcc", resolution = "l", llcrnrlon = -110., llcrnrlat = -55., urcrnrlon = -30., urcrnrlat = 17., lon_0 = -60, lat_1 = -20, rsphere = (6378137.00, 6356752.3142))
+        central_lon = -60.0
+        central_lat = -20.0
+        extent = [-100, -30, -60, 17]
+        projection=cartopy.crs.Mollweide(central_longitude=central_lon)
+        ax = plt.axes(projection=projection)
+        ax.set_extent(extent)
 
     elseif lowercase(region) == "world" || lowercase(region) == "w"
-        m = basemap.Basemap(projection = "cyl", resolution = "c", llcrnrlat = -90, urcrnrlat = 90, llcrnrlon = -180, urcrnrlon = 180)
+        central_lon = 0.0
+        central_lat = 0.0
+        extent = [-180, 180, -90, 90]
+        projection=cartopy.crs.PlateCarree(central_longitude=central_lon)
+        ax = plt.axes(projection=projection)
+        ax.set_extent(extent)
 
-    elseif lowercase(region) == "worldaz" || lowercase(region) == "waz"
-        m = basemap.Basemap(projection = "aeqd", resolution = "c", width = 28000000, height = 28000000, lon_0 = -75, lat_0 = 45)
+    elseif lowercase(region) == "mollweide" || lowercase(region) == "moll"
 
-    elseif lowercase(region) == "worldeck4" || lowercase(region) == "weck4"
-        m = basemap.Basemap(projection="eck4", resolution = "c", lon_0 = 0)
+        projection=cartopy.crs.Mollweide()
+        ax = plt.axes(projection=projection)
+
+    elseif lowercase(region) == "worldeck1" || lowercase(region) == "weck1" || lowercase(region) == "eck1" || lowercase(region) == "eckert1"
+
+        projection=cartopy.crs.EckertI()
+        ax = plt.axes(projection=projection)
+
+    elseif lowercase(region) == "worldeck2" || lowercase(region) == "weck2" || lowercase(region) == "eck2" || lowercase(region) == "eckert2"
+
+        projection=cartopy.crs.EckertII()
+        ax = plt.axes(projection=projection)
+
+    elseif lowercase(region) == "worldeck3" || lowercase(region) == "weck3" || lowercase(region) == "eck3" || lowercase(region) == "eckert3"
+
+        projection=cartopy.crs.EckertIII()
+        ax = plt.axes(projection=projection)
+
+    elseif lowercase(region) == "worldeck4" || lowercase(region) == "weck4" || lowercase(region) == "eck4" || lowercase(region) == "eckert4"
+
+        projection=cartopy.crs.EckertIV()
+        ax = plt.axes(projection=projection)
+
+    elseif lowercase(region) == "worldeck5" || lowercase(region) == "weck5" || lowercase(region) == "eck5" || lowercase(region) == "eckert5"
+
+        projection=cartopy.crs.EckertV()
+        ax = plt.axes(projection=projection)
+
+    elseif lowercase(region) == "worldeck6" || lowercase(region) == "weck6" || lowercase(region) == "eck6" || lowercase(region) == "eckert6"
+
+        projection=cartopy.crs.EckertVI()
+        ax = plt.axes(projection=projection)
 
     elseif lowercase(region) == "outaouais"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection="lcc", resolution="h", llcrnrlon=-78.5, llcrnrlat=45., urcrnrlon=-73.866, urcrnrlat=48.0, lon_0=-75, lat_1=44, rsphere=(6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "laurentides"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection="lcc", resolution="h", llcrnrlon=-76.5, llcrnrlat=45., urcrnrlon=-72.866, urcrnrlat=48.0, lon_0=-73.5, lat_1=44, rsphere=(6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "estrie"
+        error("Not yet supported by new API")
         m = basemap.Basemap(projection="lcc", resolution="h", llcrnrlon=-73.0, llcrnrlat=44.5, urcrnrlon=-70.0, urcrnrlat=46.3, lon_0=-71.0, lat_1=45, rsphere=(6378137.00, 6356752.3142))
 
     elseif region == "auto"
-        m = basemap.Basemap(projection="cyl", resolution = "c", llcrnrlat = slat, urcrnrlat = nlat, llcrnrlon = llon, urcrnrlon = rlon)
+        central_lon = (llon + rlon)/2
+        central_lat = (nlat + slat)/2
+        extent = [llon, rlon, slat, nlat]
+        projection=cartopy.crs.Robinson()
+        ax = plt.axes(projection=projection)
+        ax.set_extent(extent)
     end
 
     # Draw the map properties
-    m.drawcoastlines(linewidth = 0.6)
-    m.drawcountries(linewidth = 0.6)
+    ax.gridlines()
+    # ax.coastlines(resolution="50m")
+    ax.coastlines()
 
     if states
-        m.drawstates(linewidth = 0.2)
+        ax.add_feature(cartopy.feature.BORDERS)
     end
 
-    if lowercase(region) != "quebecnsp" || lowercase(region) != "qcnsp"
-      if lowercase(region) == "antarctic" || lowercase(region) == "aaps"
-        # Is there a Julia eqvlnt to Py's 'if object not in list'?
-          m.drawmeridians(0:30:360.0, labels = [1,1,1,1], fontsize = 8, linewidth = 0)
-      else
-          m.drawparallels(-90:10.0:90, labels = [1,0,0,0], fontsize = 8, linewidth = 0.6)
-          m.drawmeridians(0:30:360.0, labels = [0,0,0,1], fontsize = 8, linewidth = 0.5)
-      end
-    end
+    # if lowercase(region) != "quebecnsp" || lowercase(region) != "qcnsp"
+    #   if lowercase(region) == "antarctic" || lowercase(region) == "aaps"
+    #     # Is there a Julia eqvlnt to Py's 'if object not in list'?
+    #       m.drawmeridians(0:30:360.0, labels = [1,1,1,1], fontsize = 8, linewidth = 0)
+    #   else
+    #       m.drawparallels(-90:10.0:90, labels = [1,0,0,0], fontsize = 8, linewidth = 0.6)
+    #       m.drawmeridians(0:30:360.0, labels = [0,0,0,1], fontsize = 8, linewidth = 0.5)
+    #   end
+    # end
 
-    return true, fig, ax, m
+    return true, ax, projection
 
 end
 
