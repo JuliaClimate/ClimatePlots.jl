@@ -36,12 +36,9 @@ status, figh = ClimatePlots.mapclimgrid(C, level = 3);@test status == true; PyPl
 status, figh = ClimatePlots.mapclimgrid(C);@test status == true; PyPlot.close() # feeding a 4D field
 
 # Empty maps
-# regions = ["World", "WorldAz", "Canada", "Quebec", "Quebec_agricole", "South_Quebec", "Americas", "NorthAmerica", "SouthAmerica", "Greenwich", "Outaouais", "Laurentides", "Estrie", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "West-Asia"]
-
 regions = ["World", "Mollweide", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6","Canada", "Quebec", "USA","NorthAmerica", "SouthAmerica", "Arctic", "Antarctic", "Africa", "Europe", "Asia"]
 
-for iregion in regions
-    println(iregion)
+for iregion in regions    
     status, figh = ClimatePlots.mapclimgrid(region=iregion);@test status == true; PyPlot.close()
 end
 
