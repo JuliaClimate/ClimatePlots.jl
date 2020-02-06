@@ -158,9 +158,9 @@ function mapclimgrid(;region::String="auto", states::Bool=true, llon=[], rlon=[]
         extent = [70, 130, 0, 50]
         projection=cartopy.crs.LambertConformal(central_longitude=central_lon, central_latitude=central_lat)
 
-    elseif lowercase(region) == "west-asia" || lowercase(region) == "was"
-        error("Not yet supported by new API")
-        m = basemap.Basemap(projection = "eqdc", resolution = "l", llcrnrlon=5.0, llcrnrlat=-30.0, urcrnrlon=145.0, urcrnrlat=50.0, lat_0=5.0, lon_0=65,  rsphere=(6378137.00, 6356752.3142))
+    # elseif lowercase(region) == "west-asia" || lowercase(region) == "was"
+    #     error("Not yet supported by new API")
+    #     m = basemap.Basemap(projection = "eqdc", resolution = "l", llcrnrlon=5.0, llcrnrlat=-30.0, urcrnrlon=145.0, urcrnrlat=50.0, lat_0=5.0, lon_0=65,  rsphere=(6378137.00, 6356752.3142))
 
     elseif lowercase(region) == "quebec" || lowercase(region) == "qc"
         central_lon = -75
@@ -168,9 +168,9 @@ function mapclimgrid(;region::String="auto", states::Bool=true, llon=[], rlon=[]
         extent = [-81.5, -52.6, 41, 62.5]
         projection=cartopy.crs.LambertConformal(central_longitude=central_lon, central_latitude=central_lat)
 
-    elseif lowercase(region) == "americas" || lowercase(region) == "ams"
-        error("Not yet supported by new API")
-        m = basemap.Basemap(projection = "omerc", resolution = "c", width=14000000, height=17000000, lon_0 = -100, lat_0 =    15, lon_1 = -45, lon_2 = -120, lat_1 = -55, lat_2 = 70)
+    # elseif lowercase(region) == "americas" || lowercase(region) == "ams"
+    #     error("Not yet supported by new API")
+    #     m = basemap.Basemap(projection = "omerc", resolution = "c", width=14000000, height=17000000, lon_0 = -100, lat_0 =    15, lon_1 = -45, lon_2 = -120, lat_1 = -55, lat_2 = 70)
 
     elseif lowercase(region) == "arctic" || lowercase(region) == "aps"
         extent = [-180, 180, 60, 90]

@@ -7,7 +7,6 @@ using PyCall
 using PyPlot
 using Statistics
 
-const basemap = PyNULL()
 const mpl = PyNULL()
 const plt = PyNULL()
 const cmocean = PyNULL()
