@@ -1,13 +1,12 @@
 name = "ClimatePlots"
 uuid = "b71d359b-899c-4fb1-b3ad-2de2d2cb8353"
 authors = ["Philippe Roy <borghor@yahoo.ca>"]
-version = "0.1.1"
+version = "0.2.0"
 
 [deps]
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
 BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
 ClimateBase = "35604d93-0fb8-4872-9436-495b01d137e2"
-ClimateTools = "4f4ee721-4970-5af2-8560-6c1d960e3231"
 Conda = "8f4d0f93-b110-5947-807f-2305c1781a2d"
 CondaBinDeps = "a9693cdc-2bc8-5703-a9cd-1da358117377"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
@@ -36,6 +35,7 @@ julia = "1.3"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+ClimateTools = "4f4ee721-4970-5af2-8560-6c1d960e3231"
 
 [targets]
-test = ["Test"]
+test = ["ClimateTools", "Test"]
