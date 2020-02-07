@@ -6,13 +6,13 @@ Pkg.build("PyCall")
 using Documenter, ClimatePlots
 
 makedocs(sitename = "ClimatePlots.jl",
-doctest = false,
-format = Documenter.HTML(
+    doctest = false,
+    format = Documenter.HTML(
     prettyurls = CI,
     ),
-pages = [
-"index.md",
-]
+    pages = [
+        "index.md",
+        ]
 
 )
 
