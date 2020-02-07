@@ -2,10 +2,15 @@
 
 
 # ClimatePlots.jl
-Plotting library for Climate fields. Right now, it is compatible with [ClimateTools.jl](https://github.com/JuliaClimate/ClimateTools.jl). The objective is to develop a generic geographic mapping library in Julia.
+Plotting library for Climate fields. Right now, it is compatible with [ClimateTools.jl](https://github.com/JuliaClimate/ClimateTools.jl). The long term objective is to develop a generic climate mapping library in Julia.
 
 # Installation
-Under the hood, ClimatePlots use Basemap for plotting gridded variables. Hence, PyCall should be configured so that the python distribution linked to PyCall is able to load basemap and matplotlib.
+Under the hood, ClimatePlots use Cartopy for plotting gridded variables. Hence, PyCall should be configured so that the python distribution linked to PyCall is able to load cartopy and matplotlib.
 
 Installation steps are described [here](https://juliaclimate.github.io/ClimateTools.jl/dev/installation/).
 
+
+# Documentation
+Documentation for both ClimatePlots and ClimateTools can be found [here](https://juliaclimate.github.io/ClimateTools.jl/stable/).
+
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliaclimate.github.io/ClimateTools.jl/stable) [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://juliaclimate.github.io/ClimateTools.jl/dev)
