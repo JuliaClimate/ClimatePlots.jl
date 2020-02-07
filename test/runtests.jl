@@ -73,8 +73,22 @@ axisdata = AxisArray(data, Axis{:lon}(lon), Axis{:lat}(lat), Axis{:time}(timeV))
 C = ClimateTools.ClimGrid(axisdata, variable = "psl", typeofvar="psl", longrid=longrid, latgrid=latgrid, dimension_dict=dimension_dict, varattribs=varattribs)
 
 status, figh = ClimatePlots.contourf(C);@test status == true; PyPlot.close()
-status, figh = ClimatePlots.contour(C);@test status == true; PyPlot.close()
-status, figh = ClimatePlots.pcolormesh(C);@test status == true; PyPlot.close()
+
+C = ClimateTools.ClimGrid(axisdata, variable = "clt", typeofvar="clt", longrid=longrid, latgrid=latgrid, dimension_dict=dimension_dict, varattribs=varattribs)
+
+status, figh = ClimatePlots.contourf(C);@test status == true; PyPlot.close()
+
+C = ClimateTools.ClimGrid(axisdata, variable = "rlut", typeofvar="rlut", longrid=longrid, latgrid=latgrid, dimension_dict=dimension_dict, varattribs=varattribs)
+
+status, figh = ClimatePlots.contourf(C);@test status == true; PyPlot.close()
+
+C = ClimateTools.ClimGrid(axisdata, variable = "hurs", typeofvar="hurs", longrid=longrid, latgrid=latgrid, dimension_dict=dimension_dict, varattribs=varattribs)
+
+status, figh = ClimatePlots.contourf(C);@test status == true; PyPlot.close()
+
+C = ClimateTools.ClimGrid(axisdata, variable = "other", typeofvar="other", longrid=longrid, latgrid=latgrid, dimension_dict=dimension_dict, varattribs=varattribs)
+
+status, figh = ClimatePlots.contourf(C);@test status == true; PyPlot.close()
 
 lon = collect(-180.0:2.0:180.0)
 lat = collect(-90.0:2.0:90.0)
