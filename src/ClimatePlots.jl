@@ -1,11 +1,14 @@
 module ClimatePlots
 
 using Dates
+using CFTime
+using AxisArrays
 using Reexport
 @reexport using ClimateBase
 using PyCall
 using PyPlot
 using Statistics
+import Base.show
 
 const mpl = PyNULL()
 const plt = PyNULL()
@@ -19,8 +22,15 @@ function __init__()
     copy!(cartopy, pyimport_conda("cartopy", "cartopy", "conda-forge"))
 end
 
-include("mapping.jl")
+include("types.jl")
+include("maps.jl")
+include("plots.jl")
+include("maps_definition.jl")
+include("utils.jl")
 
 export plot, mapclimgrid, hist
+export contourf, contour, pcolormesh
+export BBox
+export PlotInfo
 
 end # module
