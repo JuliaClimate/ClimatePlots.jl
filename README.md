@@ -1,4 +1,4 @@
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Build Status](https://travis-ci.org/JuliaClimate/ClimatePlots.jl.svg?branch=master)](https://travis-ci.org/JuliaClimate/ClimatePlots.jl)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Build Status](https://travis-ci.org/JuliaClimate/ClimatePlots.jl.svg?branch=master)](https://travis-ci.org/JuliaClimate/ClimatePlots.jl) [![codecov](https://codecov.io/gh/JuliaClimate/ClimatePlots.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/JuliaClimate/ClimatePlots.jl)
 
 
 # ClimatePlots.jl
