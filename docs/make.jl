@@ -1,3 +1,6 @@
+using Pkg
+Pkg.activate(@__DIR__)
+CI = get(ENV, "CI", nothing) == "true"
 using Documenter, ClimatePlots
 
 makedocs(sitename = "ClimatePlots.jl",
@@ -11,11 +14,9 @@ pages = [
 
 )
 
-deploydocs(
-repo   = "github.com/JuliaClimate/ClimatePlots.jl.git",
-# julia  = "1.0",
-# osname = "linux",
-target = "build"
-# deps = nothing,
-# make = nothing
-)
+if CI
+    deploydocs(
+    repo   = "github.com/JuliaClimate/ClimatePlots.jl.git",
+    target = "build"
+    )
+end
