@@ -1,7 +1,10 @@
 using Documenter, ClimatePlots
 
 makedocs(sitename = "ClimatePlots.jl",
-format = :html,
+doctest = false,
+format = Documenter.HTML(
+    prettyurls = CI,
+    ),
 pages = [
 "index.md",
 ]
