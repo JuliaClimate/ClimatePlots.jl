@@ -15,6 +15,7 @@ script:
 jobs:
   allow_failures:
     - julia: nightly
+    - julia: 1.0
     - os: osx
   include:
     - stage: "Documentation"
