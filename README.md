@@ -10,7 +10,8 @@ Under the hood, ClimatePlots use Cartopy for plotting gridded variables. Hence, 
 Installation steps are described [here](https://juliaclimate.github.io/ClimateTools.jl/dev/installation/).
 
 
-# Documentation
-Documentation for both ClimatePlots and ClimateTools can be found [here](https://juliaclimate.github.io/ClimateTools.jl/stable/).
+# ClimatePlots Documentation
+[![](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliaclimate.github.io/ClimatePlots.jl/stable) [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://juliaclimate.github.io/ClimatePlots.jl/dev)
 
+# ClimateTools Documentation
 [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://juliaclimate.github.io/ClimateTools.jl/stable) [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://juliaclimate.github.io/ClimateTools.jl/dev)
