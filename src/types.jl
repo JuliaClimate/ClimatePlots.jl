@@ -17,7 +17,7 @@ function BBox(C::ClimGrid)
 end
 
 struct PlotInfo
-    data::Array{N,2} where N
+    data::Array{N,T} where N where T
     region::String
     BBox::BBox
     cm::ColorMap
@@ -26,13 +26,18 @@ struct PlotInfo
     states::Bool
 end
 
-function build_PlotInfo(C::ClimGrid, region, surface, caxis, cm, states, center_cs, ncolors)
+function build_PlotInfo(C::ClimGrid, region, surface, caxis, cm, states, center_cs, ncolors, level)
 
     # Period average
     if ndims(C[1]) >= 3
         C = periodmean(C)
     end
-    data2 = C[1].data
+
+    if ndims(C[1].data) == 3
+        data2 = C[1].data[:,:,level]
+    else
+        data2 = C[1].data
+    end
 
     # =================
     # PLOT DATA
@@ -44,7 +49,6 @@ function build_PlotInfo(C::ClimGrid, region, surface, caxis, cm, states, center_
 
     # Get colorscale limits
     vmin, vmax = getcslimits(caxis, data2, center_cs)
-
 
     return PlotInfo(data2, region, B, cm, vmin, vmax, states)
 end
