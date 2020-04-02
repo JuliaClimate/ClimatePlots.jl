@@ -18,7 +18,7 @@ Optional keyworkd includes precribed regions (keyword *region*, see list below).
 function contourf(C::ClimGrid; region::String="auto", states::Bool=false,  level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="")
 
     # Build basic plot information
-    PI = ClimatePlots.build_PlotInfo(C, region, :contourf, caxis, cm, states, center_cs, ncolors)
+    PI = ClimatePlots.build_PlotInfo(C, region, :contourf, caxis, cm, states, center_cs, ncolors, level)
 
     # Empty-map generator
     status, ax, projection = mapclimgrid(PI)
@@ -65,7 +65,7 @@ Optional keyworkd includes precribed regions (keyword *region*, see list below).
 function contour(C::ClimGrid; region::String="auto", states::Bool=false,  level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="")
 
     # Build basic plot information
-    PI = ClimatePlots.build_PlotInfo(C, region, :contour, caxis, cm, states, center_cs, ncolors)
+    PI = ClimatePlots.build_PlotInfo(C, region, :contour, caxis, cm, states, center_cs, ncolors, level)
 
     # Empty-map generator
     status, ax, projection = mapclimgrid(PI)
@@ -113,7 +113,7 @@ Optional keyworkd includes precribed regions (keyword *region*, see list below).
 function pcolormesh(C::ClimGrid; region::String="auto", states::Bool=true,  level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="")
 
     # Build basic plot information
-    PI = ClimatePlots.build_PlotInfo(C, region, :pcolormesh, caxis, cm, states, center_cs, ncolors)
+    PI = ClimatePlots.build_PlotInfo(C, region, :pcolormesh, caxis, cm, states, center_cs, ncolors, level)
 
     # Empty-map generator
     status, ax, projection = mapclimgrid(PI)
