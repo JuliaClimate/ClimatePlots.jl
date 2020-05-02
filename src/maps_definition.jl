@@ -5,6 +5,8 @@ Empty map generator.
 """
 function mapclimgrid(PI)
 
+    resolution = "auto"
+
     fig, ax = subplots()
 
     if lowercase(PI.region) == "canada" || lowercase(PI.region) == "ca"
@@ -35,6 +37,14 @@ function mapclimgrid(PI)
         central_lat = 50.0
         extent = [-81.5, -52.6, 41, 62.5]
         projection=cartopy.crs.LambertConformal(central_longitude=central_lon, central_latitude=central_lat)
+        resolution = "50m"
+
+    elseif lowercase(PI.region) == "mauricie" 
+        central_lon = -73
+        central_lat = 47.0
+        extent = [-76.0, -71.6, 46.1, 49.3]
+        projection=cartopy.crs.LambertConformal(central_longitude=central_lon, central_latitude=central_lat)
+        resolution = "10m"
 
     # elseif lowercase(region) == "americas" || lowercase(region) == "ams"
     #     error("Not yet supported by new API")
@@ -150,14 +160,22 @@ function mapclimgrid(PI)
         end
     end
 
-    # Draw the map properties
-    ax.gridlines()
-    # ax.coastlines(resolution="50m")
-    ax.coastlines()
-
     if PI.states
+        ax.add_feature(cartopy.feature.STATES)
+    end
+    if PI.rivers
+        ax.add_feature(cartopy.feature.RIVERS)
+    end
+    if PI.borders
         ax.add_feature(cartopy.feature.BORDERS)
     end
+    if PI.lakes
+        ax.add_feature(cartopy.feature.LAKES)
+    end
+
+    # Draw the map properties
+    ax.gridlines()
+    ax.coastlines(resolution=resolution)
 
     return true, ax, projection
 

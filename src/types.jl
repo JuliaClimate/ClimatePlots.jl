@@ -24,9 +24,12 @@ struct PlotInfo
     vmin::Real
     vmax::Real
     states::Bool
+    rivers::Bool
+    borders::Bool
+    lakes::Bool
 end
 
-function build_PlotInfo(C::ClimGrid, region, surface, caxis, cm, states, center_cs, ncolors, level)
+function build_PlotInfo(C::ClimGrid, region, surface, caxis, cm, states, rivers, borders, lakes, center_cs, ncolors, level)
 
     # Period average
     if ndims(C[1]) >= 3
@@ -50,7 +53,7 @@ function build_PlotInfo(C::ClimGrid, region, surface, caxis, cm, states, center_
     # Get colorscale limits
     vmin, vmax = getcslimits(caxis, data2, center_cs)
 
-    return PlotInfo(data2, region, B, cm, vmin, vmax, states)
+    return PlotInfo(data2, region, B, cm, vmin, vmax, states, rivers, borders, lakes)
 end
 
 

@@ -1,7 +1,7 @@
 name = "ClimatePlots"
 uuid = "b71d359b-899c-4fb1-b3ad-2de2d2cb8353"
 authors = ["Philippe Roy <borghor@yahoo.ca>"]
-version = "0.3.0"
+version = "0.4.0"
 
 [deps]
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
@@ -26,7 +26,7 @@ AxisArrays = "0.3, 0.4"
 BinDeps = "0.4, 0.5, 0.6, 0.7, 0.8, 1.0"
 CFTime = "0.0.3, 0.1"
 ClimateBase = "0.6"
-ClimateTools = "0.20"
+ClimateTools = "0.20, 0.21"
 Conda = "1"
 CondaBinDeps = "0.1, 0.2"
 NetCDF = "0.8, 0.9"

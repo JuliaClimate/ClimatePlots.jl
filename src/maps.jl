@@ -15,10 +15,10 @@ Optional keyworkd includes precribed regions (keyword *region*, see list below).
 - Greenwich ("Gr")
 
 """
-function contourf(C::ClimGrid; region::String="auto", states::Bool=false,  level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="")
+function contourf(C::ClimGrid; region::String="auto", states::Bool=false,  rivers::Bool=false, borders::Bool=false, lakes::Bool=false, level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="", dpi=200)
 
     # Build basic plot information
-    PI = ClimatePlots.build_PlotInfo(C, region, :contourf, caxis, cm, states, center_cs, ncolors, level)
+    PI = ClimatePlots.build_PlotInfo(C, region, :contourf, caxis, cm, states, rivers, borders, lakes, center_cs, ncolors, level)
 
     # Empty-map generator
     status, ax, projection = mapclimgrid(PI)
@@ -39,7 +39,7 @@ function contourf(C::ClimGrid; region::String="auto", states::Bool=false,  level
 
     # Save to "filename" if not empty
     if !isempty(filename)
-        PyPlot.savefig(filename, dpi=300)
+        PyPlot.savefig(filename, dpi=dpi)
     end
 
     return true, ax, projection, cbar
@@ -62,10 +62,10 @@ Optional keyworkd includes precribed regions (keyword *region*, see list below).
 - Greenwich ("Gr")
 
 """
-function contour(C::ClimGrid; region::String="auto", states::Bool=false,  level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="")
+function contour(C::ClimGrid; region::String="auto", states::Bool=false,  rivers::Bool=false, borders::Bool=false, lakes::Bool=false, level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="", dpi=200)
 
     # Build basic plot information
-    PI = ClimatePlots.build_PlotInfo(C, region, :contour, caxis, cm, states, center_cs, ncolors, level)
+    PI = ClimatePlots.build_PlotInfo(C, region, :contour, caxis, cm, states, rivers, borders, lakes, center_cs, ncolors, level)
 
     # Empty-map generator
     status, ax, projection = mapclimgrid(PI)
@@ -86,7 +86,7 @@ function contour(C::ClimGrid; region::String="auto", states::Bool=false,  level=
 
     # Save to "filename" if not empty
     if !isempty(filename)
-        PyPlot.savefig(filename, dpi=300)
+        PyPlot.savefig(filename, dpi=dpi)
     end
 
     return true, ax, projection, cbar
@@ -110,10 +110,10 @@ Optional keyworkd includes precribed regions (keyword *region*, see list below).
 - Greenwich ("Gr")
 
 """
-function pcolormesh(C::ClimGrid; region::String="auto", states::Bool=true,  level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="")
+function pcolormesh(C::ClimGrid; region::String="auto", states::Bool=false,  rivers::Bool=false, borders::Bool=false, lakes::Bool=false, level=1, caxis=[], titlestr::String="", cm::String="", ncolors::Int=12, center_cs::Bool=false, filename::String="", cs_label::String="", dpi=200)
 
     # Build basic plot information
-    PI = ClimatePlots.build_PlotInfo(C, region, :pcolormesh, caxis, cm, states, center_cs, ncolors, level)
+    PI = ClimatePlots.build_PlotInfo(C, region, :pcolormesh, caxis, cm, states, rivers, borders, lakes, center_cs, ncolors, level)
 
     # Empty-map generator
     status, ax, projection = mapclimgrid(PI)
@@ -124,7 +124,7 @@ function pcolormesh(C::ClimGrid; region::String="auto", states::Bool=true,  leve
     if isempty(cs_label)
         cs_label = getunitslabel(C)
     end
-    cbar = colorbar(cs, orientation = "vertical", shrink = 0.7, label=cs_label)
+    cbar = colorbar(cs, orientation = "vertical", shrink = 0.9, ticklocation="auto", label=cs_label)
 
     # Title
     if isempty(titlestr)
@@ -134,7 +134,7 @@ function pcolormesh(C::ClimGrid; region::String="auto", states::Bool=true,  leve
 
     # Save to "filename" if not empty
     if !isempty(filename)
-        PyPlot.savefig(filename, dpi=300)
+        PyPlot.savefig(filename, dpi=dpi)
     end
 
     return true, ax, projection, cbar
