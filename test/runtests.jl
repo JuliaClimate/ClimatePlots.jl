@@ -14,7 +14,7 @@ C = load(filenc, "tas")
 # msk = inpolygrid(C.longrid, C.latgrid, P)
 # status, figh = ClimatePlots.mapclimgrid(C); @test status == true; PyPlot.close()
 
-regions = ["World", "Mollweide", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6","Canada", "Quebec", "USA","NorthAmerica", "SouthAmerica", "Arctic", "Antarctic", "Africa", "Europe", "Asia", "auto"]
+regions = ["World", "Mollweide", "eck1", "eck2", "eck3", "eck4", "eck5", "eck6","Canada", "Quebec", "USA","NorthAmerica", "SouthAmerica", "Arctic", "Antarctic", "Africa", "Europe", "Asia","Mauricie", "auto"]
 
 for iregion in regions
     status, figh = ClimatePlots.contourf(C, region=iregion);@test status == true; PyPlot.close()
