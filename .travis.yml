@@ -20,7 +20,7 @@ jobs:
     - os: osx
   include:
     - stage: "Documentation"
-      julia: 1.3
+      julia: 1.6
       os: linux
       script:
         - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd()));Pkg.build("ClimatePlots");Pkg.instantiate()'
