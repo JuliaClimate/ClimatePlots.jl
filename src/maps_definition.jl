@@ -152,8 +152,8 @@ function mapclimgrid(PI)
     end
 
     ax = plt.axes(projection=projection)
-    if @isdefined extent
-        if @isdefined proj_extent
+    if ClimateTools.@isdefined extent
+        if ClimateTools.@isdefined proj_extent
             ax.set_extent(extent, proj_extent)
         else
             ax.set_extent(extent)

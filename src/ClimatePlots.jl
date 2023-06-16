@@ -4,7 +4,7 @@ using Dates
 using CFTime
 using AxisArrays
 using Reexport
-@reexport using ClimateBase
+@reexport using ClimateTools
 using PyCall
 using PyPlot
 using Statistics
