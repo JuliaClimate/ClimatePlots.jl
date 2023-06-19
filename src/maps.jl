@@ -139,3 +139,63 @@ function pcolormesh(C::ClimGrid; region::String="auto", states::Bool=false,  riv
 
     return true, ax, projection, cbar
 end
+
+
+"""
+    surface(C::ClimGrid)
+
+Surface plot of ClimGrid C.
+"""
+function surface(C::ClimGrid; projection="moll", cmap=:deep)
+
+C2 = periodmean(C)
+
+Cmean = C2.data.data
+
+longrid, latgrid = ClimateTools.getgrids(C)
+
+
+# texttime(i) = string(C.model, " - ", year(timevec[i]), " - ", month(timevec[i]), " - ", day(timevec[i]))
+titletext = C.model#"$(attrib["long_name"]), units=[$units], average of 19 years"
+
+projection = projection
+cmap = :deep
+
+source = Projection("+proj=lonlat +lon_0=0")
+dest = Projection("+proj=$projection +lon_0=0")
+
+# source = LonLat()
+# dest = WinkelTripel()
+
+# xs, ys = xygrid(lons, lats)
+Proj4.transform!(source, dest, vec(longrid), vec(latgrid))
+
+# get aspect ratio
+xmin, xmax = extrema(longrid)
+ymin, ymax = extrema(latgrid)
+aspect_ratio = (ymax - ymin) / (xmax - xmin)
+
+total_crange = (minimum(Cmean), maximum(Cmean))
+# total_crange = (0, 400)
+
+# function plotfield(Amean, crange = (minimum(Amean), maximum(Amean));
+#                    cmap = :viridis, titletext)
+scene, layout = layoutscene(40; resolution = (900, 475));
+# cmap = to_colormap(:viridis, 100)
+earthscene = layout[1, 1] = LScene(scene);
+
+sf = surface!(earthscene, longrid, latgrid, zeros(size(longrid)); color = Cmean,
+        shading = false, show_axis = false, colorrange = crange, colormap = cmap);
+
+geoaxis!(earthscene, -180, 180, -90, 90; crs = (src = source, dest = dest,));
+coastlines!(earthscene; crs = (src = source, dest = dest,));
+
+colorbar = layout[1, 2] = LColorbar(scene, sf, width = 20);
+colsize!(layout, 1, Relative(1))
+rowsize!(layout, 1, Aspect(1, aspect_ratio))
+tt = layout[0, :] = LText(scene, titletext, textsize = 22);
+
+return scene, sf, tt
+# end
+
+end

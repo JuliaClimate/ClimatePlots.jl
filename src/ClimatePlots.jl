@@ -7,6 +7,8 @@ using Reexport
 @reexport using ClimateTools
 using PyCall
 using PyPlot
+using GeoMakie
+using Proj4
 using Statistics
 import Base.show
 
@@ -32,5 +34,6 @@ export plot, mapclimgrid, hist
 export contourf, contour, pcolormesh
 export BBox
 export PlotInfo
+export surface
 
 end # module
